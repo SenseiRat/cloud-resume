@@ -1,0 +1,96 @@
+* {
+  max-width: 700px;
+  margin: auto;
+}
+
+.salutation {
+  font-family: Tahoma;
+  background-color: white;
+  text-align: left;
+  vertical-align: baseline;
+  text-decoration: none;
+}
+
+/*Arial, Georgia, helvetica, Tahoma, Times New Roman, Verdana */
+.my-name {   
+  font-size: 300%;
+  font-style: none;
+  color: black;
+}
+
+.my-title {
+  font-size: 200%;
+  font-style: none;
+  color: black;
+}
+
+.contact {
+  font-family: Tahoma;
+  font-size: 100%;
+  font-style: none;
+  color: black;
+
+  columns: 2;
+  column-gap: 10px;
+}
+
+.contact-col-1 {
+  text-align: left;
+  width: 125%;
+}
+
+.contact-col-2 {
+  text-align: right;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1.4;
+}
+
+/* Not currently in use */
+.phone-number {
+  width: 100;
+  height: 17;
+}
+
+.summary {
+  font-style: Georgia;
+  font-size: 100%;
+  font-style: none;
+  color: black;
+  text-align: justify;
+}
+
+.exp {
+  columns: 2;
+  column-gap: 10px;
+}
+
+.experience {
+  width: 200%;
+}
+
+.exp-header {
+  font-style: Tahoma;
+  font-size: 200%;
+  font-style: none;
+  color: black;
+  text-align: left;
+}
+
+.position {
+  columns: 2;
+  column-gap: 10px;
+}
+
+.pos-col-1 {
+  width: 125%;
+}
+
+.pos-col-2 {
+  width: 100%;
+}
+
+.expertise {
+  text-align: right;
+  width: 100%;
+}
