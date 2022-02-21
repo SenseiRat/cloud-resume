@@ -3,7 +3,8 @@
   margin: auto;
 }
 
-.salutation {
+/* Salutation */
+#salutation {
   font-family: Tahoma;
   background-color: white;
   text-align: left;
@@ -11,20 +12,7 @@
   text-decoration: none;
 }
 
-/*Arial, Georgia, helvetica, Tahoma, Times New Roman, Verdana */
-.my-name {   
-  font-size: 300%;
-  font-style: none;
-  color: black;
-}
-
-.my-title {
-  font-size: 200%;
-  font-style: none;
-  color: black;
-}
-
-.contact {
+#contact {
   font-family: Tahoma;
   font-size: 100%;
   font-style: none;
@@ -34,25 +22,34 @@
   column-gap: 10px;
 }
 
-.contact-col-1 {
+#contact-col-1 {
   text-align: left;
   width: 125%;
 }
 
-.contact-col-2 {
+#my-name {   
+  font-size: 300%;
+  font-style: none;
+  color: black;
+}
+
+#my-title {
+  font-size: 200%;
+  font-style: none;
+  color: black;
+}
+
+#contact-col-2 {
   text-align: right;
   width: 100%;
+}
+
+.contact-info {
   font-size: 100%;
   line-height: 1.4;
 }
 
-/* Not currently in use */
-.phone-number {
-  width: 100;
-  height: 17;
-}
-
-.summary {
+#summary {
   font-style: Georgia;
   font-size: 100%;
   font-style: none;
@@ -60,21 +57,18 @@
   text-align: justify;
 }
 
+/* Expertise and Experience */
 #exp {
-  columns: 2;
+  columns: 3;
   column-gap: 10px;
-}
-
-.exp:nth-of-type(1) {
-  break-after: column;
-  display: block;
+  column-rule: 1px solid black;
 }
 
 #experience {
-  width: 200%;
+  width: 100%;
 }
 
-.exp-header {
+.section-header {
   font-style: Tahoma;
   font-size: 150%;
   font-style: none;
@@ -89,15 +83,71 @@
 }
 
 .pos-col-1 {
-  width: 125%;
+  width: 100%;
+}
+
+.pos-title {
+  font-style: Tahoma;
+  font-size: 100%;
+  font-style: bold;
+  color: black;
+  text-align: left;
+}
+
+.pos-org {
+  font-style: Tahoma;
+  font-size: 75%;
+  font-style: italic;
+  color: black;
+  text-align: left;
 }
 
 .pos-col-2 {
-  width: 100%;
+  width: 50%;
+}
+
+.pos-dates {
+  font-style: Tahoma;
+  font-size: 75%;
+  font-style: none;
+  color: black;
+  text-align: right
+}
+
+.pos-loc {
+  font-style: Tahoma;
+  font-size: 75%;
+  font-style: none;
+  color: black;
+  text-align: right
+}
+
+.accomplishments {
+  font-style: Georgia;
+  font-size: 75%;
+  font-style: none;
+  color: black;
+  text-align: left;
 }
 
 #expertise {
   text-align: right;
   width: 100%;
   display: inline-block;
+}
+
+.skill-set {
+  font-style: Tahoma;
+  font-size: 100%;
+  font-style: bold;
+  color: black;
+  text-align: right
+}
+
+.skill {
+  font-style: Tahoma;
+  font-size: 75%;
+  font-style: none;
+  color: black;
+  text-align: right;
 }
