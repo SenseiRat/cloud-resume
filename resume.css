@@ -1,23 +1,29 @@
 * {
-  max-width: 700px;
+  max-width: 800px;
   margin: auto;
+
+  font-style: 'Times New Roman', Times, serif;
+  font-size: 1em;
+  background-color: white;
 }
 
-/* Salutation */
+.section-header {
+  font-size: 200%;
+  text-align: left;
+  display: inline-block;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+
+/* Salutation  section formatting */
 #salutation {
-  font-family: Tahoma;
-  background-color: white;
   text-align: left;
   vertical-align: baseline;
   text-decoration: none;
 }
 
 #contact {
-  font-family: Tahoma;
-  font-size: 100%;
-  font-style: none;
-  color: black;
-
   columns: 2;
   column-gap: 10px;
 }
@@ -29,14 +35,10 @@
 
 #my-name {   
   font-size: 300%;
-  font-style: none;
-  color: black;
 }
 
 #my-title {
   font-size: 200%;
-  font-style: none;
-  color: black;
 }
 
 #contact-col-2 {
@@ -50,104 +52,93 @@
 }
 
 #summary {
-  font-style: Georgia;
   font-size: 100%;
-  font-style: none;
-  color: black;
   text-align: justify;
 }
+/* End salutation section formatting */
 
-/* Expertise and Experience */
-#exp {
-  columns: 3;
-  column-gap: 10px;
-  column-rule: 1px solid black;
-}
 
-#experience {
-  width: 100%;
-}
-
-.section-header {
-  font-style: Tahoma;
-  font-size: 150%;
-  font-style: none;
-  color: black;
-  text-align: left;
-  display: inline-block;
-}
-
-.position {
+/* Column formatting */
+.columns {
   columns: 2;
   column-gap: 10px;
 }
 
+#experience {
+  width: 39em;
+  column-rule: 5px solid black;
+}
+
+#expertise {
+  text-align: left;
+  width: 8em;
+  padding-left: 17em;
+}
+
+.position {
+  padding-bottom: 1em;
+}
+
 .pos-col-1 {
-  width: 100%;
-}
-
-.pos-title {
-  font-style: Tahoma;
-  font-size: 100%;
-  font-style: bold;
-  color: black;
-  text-align: left;
-}
-
-.pos-org {
-  font-style: Tahoma;
-  font-size: 75%;
-  font-style: italic;
-  color: black;
-  text-align: left;
+  width: 30em;
 }
 
 .pos-col-2 {
-  width: 50%;
+  width: 18em;
 }
 
-.pos-dates {
-  font-style: Tahoma;
-  font-size: 75%;
-  font-style: none;
-  color: black;
+.other-col-2 {
+  width: 20em;
+}
+
+.other-col-1 {
+  width: 25em;
+}
+/* End column formatting */
+
+
+/* Formatting for job/edu/pub/org/vol data */
+.title {
+  /*font-size: 115%;*/
+  font-weight: bold;
+  text-align: left;
+}
+
+.organization {
+  font-style: italic;
+  text-align: left;
+}
+
+.dates {
   text-align: right
 }
 
-.pos-loc {
-  font-style: Tahoma;
-  font-size: 75%;
-  font-style: none;
-  color: black;
+.location {
   text-align: right
 }
 
 .accomplishments {
-  font-style: Georgia;
-  font-size: 75%;
-  font-style: none;
-  color: black;
+  list-style-position: outside;
+  margin: 0;
+  padding-top: .5em;
+  padding-left: 1em;
+}
+
+.effort {
   text-align: left;
+  column-span: none;
 }
+/* End formatting for job/edu/pub/org/vol data */
 
-#expertise {
-  text-align: right;
-  width: 100%;
-  display: inline-block;
-}
 
+/* Formatting for expertise section */
 .skill-set {
-  font-style: Tahoma;
-  font-size: 100%;
-  font-style: bold;
-  color: black;
-  text-align: right
+  font-size: 115%;
+  font-weight: bold;
+  padding-top: 1em;
 }
 
 .skill {
-  font-style: Tahoma;
-  font-size: 75%;
-  font-style: none;
-  color: black;
-  text-align: right;
+  padding-top: .25em;
 }
+/* End formatting for expertise section */
