@@ -66,13 +66,12 @@
 
 #experience {
   width: 39em;
-  column-rule: 5px solid black;
 }
 
 #expertise {
   text-align: left;
   width: 8em;
-  padding-left: 17em;
+  padding-left: 15em;
 }
 
 .position {
@@ -132,13 +131,27 @@
 
 
 /* Formatting for expertise section */
+.section-header.exp {
+  font-size: 200%;
+  text-align: left;
+  display: inline-block;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: .5em;
+  border-left: 3px solid black;
+}
+
 .skill-set {
   font-size: 115%;
   font-weight: bold;
-  padding-top: 1em;
+  padding-top: .75em;
+  padding-left: .5em;
+  border-left: 3px solid black;
 }
 
 .skill {
   padding-top: .25em;
+  padding-left: .5em;
+  border-left: 3px solid black;
 }
 /* End formatting for expertise section */
