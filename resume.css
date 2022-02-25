@@ -1,49 +1,79 @@
 * {
-  max-width: 800px;
   margin: auto;
 
   font-style: 'Times New Roman', Times, serif;
   font-size: 1em;
+}
+
+.left-border {
+  height: 100%;
+  width: 10%;
+  opacity: 50%;
+  background: linear-gradient(270deg, rgba(255,255,255,1) 50%, rgba(0,0,0,0.6446779395351891) 100%);
+  float: left;
+  position: fixed;
+}
+
+.data {
+  padding-top: 1%;
+  padding-bottom: 2%;
+  margin-left: 10%;
+  width: 70%;
+  float: left;
   background-color: white;
+  min-width: 753px;
+  max-width: 800px;
 }
 
 .section-header {
   font-size: 200%;
   text-align: left;
-  display: inline-block;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding-top: .5%;
+  padding-bottom: .5%;
+  clear: both;
+}
+
+.section-header.exp {
+  font-size: 200%;
+  text-align: right;
+  padding-top: .5%;
+  padding-bottom: .5%;
 }
 
 
-/* Salutation  section formatting */
+/* Salutation  layout formatting */
 #salutation {
   text-align: left;
   vertical-align: baseline;
   text-decoration: none;
+  padding-left: 1%;
+  padding-right: 1%;
 }
 
 #contact {
   columns: 2;
-  column-gap: 10px;
+  column-gap: 2%;
 }
 
 #contact-col-1 {
   text-align: left;
-  width: 125%;
+  width: 100%;
 }
 
+#contact-col-2 {
+  text-align: right;
+  width: 100%;
+}
+/* End salutation layout formatting */
+
+
+/* Font configuration for salutation and contact info */
 #my-name {   
   font-size: 300%;
 }
 
 #my-title {
   font-size: 200%;
-}
-
-#contact-col-2 {
-  text-align: right;
-  width: 100%;
 }
 
 .contact-info {
@@ -55,23 +85,25 @@
   font-size: 100%;
   text-align: justify;
 }
-/* End salutation section formatting */
+/* End salutation/contact section formatting */
 
 
 /* Column formatting */
-.columns {
-  columns: 2;
-  column-gap: 10px;
-}
-
 #experience {
-  width: 39em;
+  width: 79%;
+  -moz-width: 79%;
+  -webkit-width: 79%;
+  float: left;
+  padding-left: 1%;
 }
 
 #expertise {
-  text-align: left;
-  width: 8em;
-  padding-left: 15em;
+  width: 18%;
+  -moz-width: 18%;
+  -webkit-width: 18%;
+  padding-right: 1%;
+  float: right;
+  text-align: right;
 }
 
 .position {
@@ -79,26 +111,53 @@
 }
 
 .pos-col-1 {
-  width: 30em;
+  width: 75%;
+  -moz-width: 75%;
+  -webkit-width: 75%;
+  float: left;
 }
 
 .pos-col-2 {
-  width: 18em;
-}
-
-.other-col-2 {
-  width: 20em;
+  width: 25%;
+  -moz-width: 25%;
+  -webkit-width: 25%;
+  float: right;
 }
 
 .other-col-1 {
-  width: 25em;
+  width: 49%;
+  -moz-width: 49%;
+  -webkit-width: 49%;
+  float: left;
+  padding-left: 1%;
+}
+
+.other-col-2 {
+  width: 30%;
+  -moz-width: 30%;
+  -webkit-width: 30%;
+  float: right;
 }
 /* End column formatting */
 
 
-/* Formatting for job/edu/pub/org/vol data */
+#education {
+  padding-left: 1%;
+  float: left;
+}
+
+#cert {
+  padding-top: 7%;
+}
+
+#organizations {
+  padding-left: 1%;
+  float: left;
+}
+
+
+/* Formatting for job/edu/pub/org/vol text */
 .title {
-  /*font-size: 115%;*/
   font-weight: bold;
   text-align: left;
 }
@@ -119,39 +178,26 @@
 .accomplishments {
   list-style-position: outside;
   margin: 0;
-  padding-top: .5em;
-  padding-left: 1em;
+  padding-top: 5%;
+  padding-left: 2%;
 }
 
 .effort {
   text-align: left;
-  column-span: none;
 }
 /* End formatting for job/edu/pub/org/vol data */
 
 
 /* Formatting for expertise section */
-.section-header.exp {
-  font-size: 200%;
-  text-align: left;
-  display: inline-block;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: .5em;
-  border-left: 3px solid black;
-}
-
 .skill-set {
   font-size: 115%;
   font-weight: bold;
-  padding-top: .75em;
-  padding-left: .5em;
-  border-left: 3px solid black;
+  padding-top: 1%;
+  padding-left: 1%;
 }
 
 .skill {
   padding-top: .25em;
   padding-left: .5em;
-  border-left: 3px solid black;
 }
 /* End formatting for expertise section */
