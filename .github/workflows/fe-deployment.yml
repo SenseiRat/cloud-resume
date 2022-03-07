@@ -32,11 +32,11 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get install tidy eslint awscli -yqq
       
-      - name: Validate and lint files
-        run: |
-          tidy ./front-end/*.html
-          # csslint ./front-end/*.css
-          eslint ./front-end/*.js
+      #- name: Validate and lint files
+      #  run: |
+      #    tidy ./front-end/*.html
+      #    # csslint ./front-end/*.css
+      #    eslint ./front-end/*.js
 
       # Runs a single command using the runners shell
       - name: Upload the files to S3
