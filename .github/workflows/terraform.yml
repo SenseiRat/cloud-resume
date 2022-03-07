@@ -42,12 +42,15 @@
 #       with:
 #         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-name: 'Terraform'
+name: 'Deploy back end'
 
 on:
   pull_request:
     branches: [ master ]
     paths: [ "*.tf" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 jobs:
   terraform:
