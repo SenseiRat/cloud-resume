@@ -17,6 +17,7 @@ concurrency:
 
 jobs:
   lint:
+    if: ! startsWith(github.event.head_commit.message, 'Merge pull request')
     runs-on: ubuntu-latest
     environment: production
     
@@ -55,10 +56,11 @@ jobs:
           AWS_REGION: ${{ secrets.AWS_REGION }}
           S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
         run: |
-          for FILE in front-end/*; do
-            echo "Uploading $(basename ${FILE}) to ${S3_BUCKET_NAME}"
-            aws s3 --region ${AWS_REGION} cp "$FILE" "s3://${S3_BUCKET_NAME}/$(basename ${FILE}) "
-          done
+          aws s3 --region ${AWS_REGION} sync front-end "s3://${S#_BUCKET_NAME}"
+          # for FILE in front-end/*; do
+          #  echo "Uploading $(basename ${FILE}) to ${S3_BUCKET_NAME}"
+          #   aws s3 --region ${AWS_REGION} cp "$FILE" "s3://${S3_BUCKET_NAME}/$(basename ${FILE}) " 
+          # done
 
   clear_cache:
     if: startsWith(github.event.head_commit.message, 'Merge pull request')
