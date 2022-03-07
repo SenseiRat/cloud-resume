@@ -30,13 +30,16 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: Install dependencies
-        run: sudo apt-get install tidy eslint awscli -yqq
+        run: sudo apt-get install tidy awscli -yqq
       
       - name: Validate and lint files
         run: |
           tidy -eq ./front-end/*.html
-      #    # csslint ./front-end/*.css
-      #    eslint ./front-end/*.js
+          # csslint ./front-end/*.css
+          # jslint ./front-end/*.js
+
+      - name: Test credential
+        run: echo $AWS_ACCESS_KEY_ID
 
       # Runs a single command using the runners shell
       - name: Upload the files to S3
