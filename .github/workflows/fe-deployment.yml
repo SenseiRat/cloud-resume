@@ -51,7 +51,7 @@ jobs:
           S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
         run: |
           for FILE in front-end/*; do
-            aws s3 cp "./front-end/$FILE" "s3://${S3_BUCKET_NAME}/${FILE}"
+            aws s3 cp "$FILE" "s3://${S3_BUCKET_NAME}/$(basename ${FILE})"
           done
 
   clear_cache:
