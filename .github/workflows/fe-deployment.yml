@@ -32,9 +32,9 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get install tidy eslint awscli -yqq
       
-      #- name: Validate and lint files
-      #  run: |
-      #    tidy ./front-end/*.html
+      - name: Validate and lint files
+        run: |
+          tidy -eq ./front-end/*.html
       #    # csslint ./front-end/*.css
       #    eslint ./front-end/*.js
 
