@@ -1,6 +1,6 @@
 # Create the S3 bucket to host the website files in
 resource "aws_s3_bucket" "resume-bucket" {
-  bucket_prefix = "cloud-resume"
+  bucket_prefix = "cloud-resume-"
 }
 
 # Bucket ACL
@@ -48,7 +48,9 @@ data "aws_iam_policy_document" "allow_oai_access_to_resume_bucket" {
     actions = [
       "s3:GetObject"
     ]
-    resources = ["aws_s3_bucket.resume-bucket.arn/*"]
+    resources = [
+      "${aws_s3_bucket.resume-bucket.arn}/*"
+    ]
   }
 }
 
@@ -89,6 +91,8 @@ resource "aws_s3_bucket_lifecycle_configuration" "bucket-config" {
   bucket     = aws_s3_bucket.resume-bucket.bucket
 
   rule {
+    filter {}
+
     id     = "remove-old-versions"
     status = "Enabled"
     noncurrent_version_expiration {

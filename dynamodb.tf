@@ -16,15 +16,15 @@ resource "aws_dynamodb_table" "resume-visit-counter" {
   }
 }
 
-resource "aws_dynamodb_table_item" "resume-visit-count-init" {
-  table_name = aws_dynamodb_table.resume-visit-counter.name
-  hash_key   = aws_dynamodb_table.resume-visit-counter.hash_key
-  range_key  = aws_dynamodb_table.resume-visit-counter.range_key
-
-  item = <<ITEM
-{
-    "pkey": {"S": "visitors"},
-    "num_visits": {"N": "0"}
-}
-ITEM
-}
+#resource "aws_dynamodb_table_item" "resume-visit-count-init" {
+#  table_name = aws_dynamodb_table.resume-visit-counter.name
+#  hash_key   = aws_dynamodb_table.resume-visit-counter.hash_key
+#  range_key  = aws_dynamodb_table.resume-visit-counter.range_key
+#
+#  item = <<ITEM
+#{
+#    "pkey": {"S": "visitors"},
+#    "num_visits": {"N": "0"}
+#}
+#ITEM
+#}

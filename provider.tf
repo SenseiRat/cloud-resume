@@ -8,7 +8,11 @@ terraform {
   required_providers {
     aws = {
       source  = "aws"
-      version = "~> 4.2"
+      version = "~> 4.4.0"
+    }
+    archive = {
+      source  = "archive"
+      version = "2.2.0"
     }
   }
 }
