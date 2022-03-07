@@ -3,7 +3,6 @@ name: 'Deploy front end'
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    # branches: [ master, main ]
     paths: [ "front-end/**" ]
   pull_request:
     branches: [ master, main ]
@@ -11,6 +10,10 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   lint:
@@ -61,6 +64,7 @@ jobs:
     if: startsWith(github.event.head_commit.message, 'Merge pull request')
     runs-on: ubuntu-latest
     environment: production
+    needs: [ deploy ]
 
     defaults:
       run:
@@ -73,5 +77,6 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
           CF_DIST_ID: ${{ secrets.CF_DIST_ID }}
-        run: aws cloudfront create-invalidation --distribution-id "${CF_DIST_ID}" --paths /*
+        run: aws cloudfront --region ${AWS_REGION} create-invalidation --distribution-id "${CF_DIST_ID}" --paths /*
