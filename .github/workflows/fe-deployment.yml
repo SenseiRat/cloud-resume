@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   lint:
-    if: ! startsWith(github.event.head_commit.message, 'Merge pull request')
+    #if: startsWith(!github.event.head_commit.message, 'Merge pull request')
     runs-on: ubuntu-latest
     environment: production
     
