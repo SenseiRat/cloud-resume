@@ -51,6 +51,7 @@ jobs:
           S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
         run: |
           for FILE in front-end/*; do
+            echo "Uploading $(basename ${FILE}) to ${S3_BUCKET_NAME}"
             aws s3 cp "$FILE" "s3://${S3_BUCKET_NAME}/$(basename ${FILE})"
           done
 
