@@ -1,3 +1,25 @@
+# Create the S3 bucket for holding logs
+resource "aws_s3_bucket" "resume-log-bucket" {
+  bucket_prefix = "cloud-resume-logs-"
+}
+
+# log retention policy
+resource "aws_s3_bucket_lifecycle_configuration" "bucket-log-lifecycle" {
+  depends_on = [aws_s3_bucket_versioning.resume-versioning]
+  bucket     = aws_s3_bucket.resume-bucket.bucket
+
+  rule {
+    filter {}
+
+    id     = "remove-old-versions"
+    status = "Enabled"
+    noncurrent_version_expiration {
+      newer_noncurrent_versions = 3
+      noncurrent_days           = 30
+    }
+  }
+}
+
 # Create the S3 bucket to host the website files in
 resource "aws_s3_bucket" "resume-bucket" {
   bucket_prefix = "cloud-resume-"
@@ -100,4 +122,8 @@ resource "aws_s3_bucket_lifecycle_configuration" "bucket-config" {
       noncurrent_days           = 30
     }
   }
+}
+
+resource "aws_s3_bucket_logging" "bucket-logging" {
+  bucket = 
 }
