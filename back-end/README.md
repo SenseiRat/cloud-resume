@@ -28,6 +28,7 @@ After my son was born, I needed an easy project to take on in my free time, so I
 18. Notifications Pt. II: 
 19. Multi-cloud Pt. I: Deploy the same resources to GCP, replicate the databases, and apply with terraform
 20. Multi-cloud Pt. II: Deploy the same resources to Azure, replicate the databases, and apply with terraform
+21. Monitoring: Perform Geolocation on IP Addresses to find where requests are coming from and notify if coming from desirable geographic location
 
 # To Do
 1. Enable bucket/Cloudfront logging to get visitors to website

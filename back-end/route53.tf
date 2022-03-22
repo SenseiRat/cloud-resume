@@ -1,10 +1,12 @@
 resource "aws_route53_zone" "starnes-cloud" {
   name = var.domain_name
+
+  tags = var.common_tags
 }
 
 resource "aws_route53_record" "starnes-cloud-root-record" {
   zone_id = aws_route53_zone.starnes-cloud.zone_id
-  name    = "starnes.cloud"
+  name    = var.domain_name
   type    = "A"
 
   alias {
@@ -25,6 +27,8 @@ resource "aws_route53_record" "starnes-cloud-www-record" {
 resource "aws_acm_certificate" "resume-certificate" {
   domain_name       = var.domain_name
   validation_method = "DNS"
+
+  tags = var.common_tags
 }
 
 resource "aws_route53_record" "resume-certificate-validation-record" {
