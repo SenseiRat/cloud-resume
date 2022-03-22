@@ -51,6 +51,7 @@ jobs:
     name: Apply
     runs-on: ubuntu-latest
     environment: production
+    needs: [ lint ]
 
     steps:
       - name: Checkout
