@@ -37,3 +37,4 @@ After my son was born, I needed an easy project to take on in my free time, so I
 4. Deploy everything with terraform and a Github action
 5. ~~Set up retention policy on logging bucket to prevent high costs~~
 6. Clean up old resources in AWS
+7. Change to using `configure-aws-credentials` instead of Github variables to store access keys
