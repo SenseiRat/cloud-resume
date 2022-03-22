@@ -49,6 +49,7 @@ jobs:
 
   apply:
     name: Apply
+    if: startsWith(github.event.head_commit.message, 'Merge pull request')
     runs-on: ubuntu-latest
     environment: production
     needs: [ lint ]
