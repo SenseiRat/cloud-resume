@@ -31,6 +31,6 @@ provider "aws" {
   secret_key = var.aws_secret_key
 }
 
-#provider "github" {
-#  app_auth {}
-#}
+provider "github" {
+  app_auth {}
+}
