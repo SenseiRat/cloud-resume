@@ -20,37 +20,37 @@ variable "aws_region" {
 }
 
 variable "backend_bucket" {
-  type = string
+  type        = string
   description = "The name of the bucket used for the backend"
-  default = "$env:BACKEND_BUCKET"
+  default     = "$env:BACKEND_BUCKET"
 }
 
 variable "resume_bucket" {
-  type = string
+  type        = string
   description = "The S3 bucket used to host the website"
-  default = "$env:RESUME_BUCKET"
+  default     = "$env:RESUME_BUCKET"
 }
 
 variable "cloudfront_distribution_id" {
-  type = string
+  type        = string
   description = "The Cloudfront distribution ID"
-  default = "$env:CF_DIST_ID"
+  default     = "$env:CF_DIST_ID"
 }
 
 variable "dynamodb_table_name" {
-  type = string
+  type        = string
   description = "The name of the DynamoDB Table that the lambda interacts with"
-  default = "$env:DYNAMODB_TABLE_NAME"
+  default     = "$env:DYNAMODB_TABLE_NAME"
 }
 
 variable "domain_name" {
   type        = string
   description = "The domain name for the website"
-  default = "$env:DOMAIN_NAME"
+  default     = "$env:DOMAIN_NAME"
 }
 
 variable "cicd-resume-policy" {
   type        = string
   description = "Stored because we can't call an object within itself"
-  default = "$env:CICD_RESUME_POLICY"
+  default     = "$env:CICD_RESUME_POLICY"
 }
