@@ -34,8 +34,10 @@ After my son was born, I needed an easy project to take on in my free time, so I
 1. ~~Enable bucket/Cloudfront logging to get visitors to website~~
 2. Trigger lambda based off data added to S3 bucket to add IP address to DynamoDB database
 3. Send a notification via SNS when a new visitor goes to the site
-4. Deploy everything with terraform and a Github action
+4. ~~Deploy everything with terraform and a Github action~~
 5. ~~Set up retention policy on logging bucket to prevent high costs~~
 6. Clean up old resources in AWS
 7. Change to using `configure-aws-credentials` instead of Github variables to store access keys
 8. Update the terraform ID for resume-cicd to resume-cicd-user for clarity
+9. Review IAM permissions granted to CICD role to ensure they're not overly permissive
+10. Figure out how to get Github action variables as outputs (region, state bucket)
