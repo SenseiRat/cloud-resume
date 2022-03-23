@@ -9,7 +9,7 @@ variable "aws_secret_key" {
 
 variable "aws_region" {
   type        = string
-  default = "$env:AWS_REGION"
+  default     = "$env:AWS_REGION"
   description = "Region for region-specific resources"
 }
 
