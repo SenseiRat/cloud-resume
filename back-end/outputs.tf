@@ -15,3 +15,7 @@ data "aws_region" "current" {}
 output "aws_region" {
   value = data.aws_region.current.name
 }
+
+output "cicd-resume-policy" {
+  value = aws_iam_policy.resume-cicd-policy.arn
+}

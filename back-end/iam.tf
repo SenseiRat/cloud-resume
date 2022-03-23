@@ -34,7 +34,7 @@ data "aws_iam_policy_document" "resume-cicd-policy-document" {
     sid    = "AllowCF"
     effect = "Allow"
     actions = [
-      "cloudfront:CreateInvalidation"
+      "cloudfront:*"
     ]
     resources = [
       "${aws_cloudfront_distribution.resume-distribution.arn}"
@@ -62,6 +62,75 @@ data "aws_iam_policy_document" "resume-cicd-policy-document" {
     ]
     resources = [
       "$arn:aws:s3:::${var.backend_bucket}/*"
+    ]
+  }
+
+  statement {
+    sid    = "AllowCFOAI"
+    effect = "Allow"
+    actions = [
+      "cloudfront:*"
+    ]
+    resources = [
+      "arn:aws:cloudfront::${data.aws_caller_identity.current.account_id}:origin-access-identity/${aws_cloudfront_origin_access_identity.resume-OAI.id}"
+    ]
+  }
+
+  statement {
+    sid    = "AllowDynamoDB"
+    effect = "Allow"
+    actions = [
+      "dynamodb:*"
+    ]
+    resources = [
+      "${aws_dynamodb_table.resume-visit-counter.arn}"
+    ]
+  }
+
+  statement {
+    sid    = "AllowIAM"
+    effect = "Allow"
+    actions = [
+      "iam:*"
+    ]
+    resources = [
+      "${aws_iam_role.resume-lambda-iam.arn}",
+      "${aws_iam_policy.resume-lambda-policy.arn}",
+      "${aws_iam_user.resume-cicd.arn}",
+      "${aws_iam_group.resume-cicd-group.arn}",
+      # We can't call the data object from within itself, so we store this as a var
+      "${var.cicd-resume-policy}"
+    ]
+  }
+
+  statement {
+    sid     = "AllowRoute53"
+    effect  = "Allow"
+    actions = ["route53:*"]
+    resources = [
+      "${aws_route53_zone.starnes-cloud.arn}"
+    ]
+  }
+
+  statement {
+    sid    = "AllowACM"
+    effect = "Allow"
+    actions = [
+      "acm:*"
+    ]
+    resources = [
+      "${aws_acm_certificate.resume-certificate.arn}"
+    ]
+  }
+
+  statement {
+    sid    = "AllowLambda"
+    effect = "Allow"
+    actions = [
+      "lambda:*"
+    ]
+    resources = [
+      "${aws_lambda_function.resume-lambda.arn}"
     ]
   }
 }
