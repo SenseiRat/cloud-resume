@@ -2,6 +2,9 @@ data "aws_caller_identity" "current" {}
 
 variable "common_tags" {
   description = "Common tags applied to all components"
+  default = {
+    Project = "cloud-resume"
+  }
 }
 
 variable "aws_access_key" {
