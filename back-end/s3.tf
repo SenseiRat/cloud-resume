@@ -26,6 +26,29 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "resume-log-encryp
   }
 }
 
+data "aws_iam_policy_document" "resume-log-bucket-policy" {
+  statement {
+    sid    = "AllowTF"
+    effect = "Allow"
+    principals {
+      type        = "AWS"
+      identifiers = [aws_iam_user.resume-cicd.unique_id]
+    }
+    actions = [
+      "s3:*"
+    ]
+    resources = [
+      "${aws_s3_bucket.resume-log-bucket.arn}",
+      "${aws_s3_bucket.resume-log-bucket.arn}/*"
+    ]
+  }
+}
+
+resource "aws_s3_bucket_policy" "resume-log-bucket-policy" {
+  bucket = aws_s3_bucket.resume-log-bucket.id
+  policy = data.aws_iam_policy_document.resume-log-bucket-policy.json
+}
+
 # log retention policy
 resource "aws_s3_bucket_lifecycle_configuration" "bucket-log-lifecycle" {
   bucket = aws_s3_bucket.resume-log-bucket.bucket
@@ -81,15 +104,29 @@ data "aws_iam_policy_document" "allow_oai_access_to_resume_bucket" {
     sid    = "Allow-OAI-Access-To-Bucket"
     effect = "Allow"
     principals {
-      type = "AWS"
-      # TODO: Change this to be the terraform resource
-      # identifiers = ["arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity E2YI7VE40AGKHR"]
+      type        = "AWS"
       identifiers = [aws_cloudfront_origin_access_identity.resume-OAI.iam_arn]
     }
     actions = [
       "s3:GetObject"
     ]
     resources = [
+      "${aws_s3_bucket.resume-bucket.arn}/*"
+    ]
+  }
+
+  statement {
+    sid    = "AllowTF"
+    effect = "Allow"
+    principals {
+      type        = "AWS"
+      identifiers = [aws_iam_user.resume-cicd.unique_id]
+    }
+    actions = [
+      "s3:*"
+    ]
+    resources = [
+      "${aws_s3_bucket.resume-bucket.arn}",
       "${aws_s3_bucket.resume-bucket.arn}/*"
     ]
   }

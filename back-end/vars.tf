@@ -19,6 +19,9 @@ variable "backend_bucket" {
   description = "The name of the bucket used for the backend"
 }
 
-#data "terraform_remote_state" "s3" {
-#  backend = "s3"
-#}
+data "aws_caller_identity" "current" {}
+
+variable "cicd-resume-policy" {
+  type        = string
+  description = "Stored because we can't call an object within itself"
+}
