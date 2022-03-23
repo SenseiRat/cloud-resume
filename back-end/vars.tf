@@ -9,7 +9,7 @@ variable "common_tags" {
 
 variable "aws_access_key" {
   type    = string
-  default = "$env:TF_VAR_aws_access_key_id"
+  default = "$env:TF_VAR_aws_access_key"
   sensitive = true
 }
 
