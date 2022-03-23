@@ -19,3 +19,7 @@ output "aws_region" {
 output "cicd-resume-policy" {
   value = aws_iam_policy.resume-cicd-policy.arn
 }
+
+output "test-access" {
+  value = var.aws_access_key
+}
