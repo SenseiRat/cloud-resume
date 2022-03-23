@@ -8,14 +8,14 @@ variable "common_tags" {
 }
 
 variable "aws_access_key" {
-  type    = string
-  default = "$env:TF_VAR_aws_access_key"
+  type      = string
+  default   = "$env:TF_VAR_aws_access_key"
   sensitive = true
 }
 
 variable "aws_secret_key" {
-  type    = string
-  default = "$env:TF_VAR_aws_secret_access_key"
+  type      = string
+  default   = "$env:TF_VAR_aws_secret_access_key"
   sensitive = true
 }
 
@@ -55,8 +55,8 @@ variable "domain_name" {
   default     = "$env:TF_VAR_domain_name"
 }
 
-variable "cicd-resume-policy" {
+variable "cicd_resume_policy" {
   type        = string
   description = "Stored because we can't call an object within itself"
-  default     = "$env:TF_VAR_cicd-resume-policy"
+  default     = "$env:TF_VAR_cicd_resume_policy"
 }

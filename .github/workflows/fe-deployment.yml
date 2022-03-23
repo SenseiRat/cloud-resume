@@ -21,7 +21,7 @@ env:
   TF_VAR_cloudfront_disribution_id: ${{ secrets.CF_DIST_ID }}
   TF_VAR_dynamodb_table_name: ${{ secrets.DYNAMODB_TABLE_NAME }}
   TF_VAR_domain_name: ${{ secrets.DOMAIN_NAME }}
-  TF_VAR_cicd-resume-policy: ${{ secrets.CICD_RESUME_POLICY }}
+  TF_VAR_cicd_resume_policy: ${{ secrets.CICD_RESUME_POLICY }}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

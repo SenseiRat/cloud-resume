@@ -99,7 +99,7 @@ data "aws_iam_policy_document" "resume-cicd-policy-document" {
       "${aws_iam_user.resume-cicd.arn}",
       "${aws_iam_group.resume-cicd-group.arn}",
       # We can't call the data object from within itself, so we store this as a var
-      "${var.cicd-resume-policy}"
+      "${var.cicd_resume_policy}"
     ]
   }
 
