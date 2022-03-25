@@ -1,4 +1,5 @@
 other-resources
+.env
 
 # Local .terraform directories
 **/.terraform/*

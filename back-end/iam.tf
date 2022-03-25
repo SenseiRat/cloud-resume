@@ -48,7 +48,7 @@ data "aws_iam_policy_document" "resume-cicd-policy-document" {
       "s3:ListBucket"
     ]
     resources = [
-      "$arn:aws:s3:::${var.backend_bucket}"
+      "arn:aws:s3:::${var.backend_bucket}"
     ]
   }
 
@@ -56,12 +56,14 @@ data "aws_iam_policy_document" "resume-cicd-policy-document" {
     sid    = "AllowTFObjects"
     effect = "Allow"
     actions = [
+      "s3:ListBucket",
       "s3:GetObject",
       "s3:PutObject",
       "s3:DeleteObject"
     ]
     resources = [
-      "$arn:aws:s3:::${var.backend_bucket}/*"
+      "arn:aws:s3:::${var.backend_bucket}/*",
+      "arn:aws:s3:::${var.backend_bucket}"
     ]
   }
 
@@ -83,7 +85,21 @@ data "aws_iam_policy_document" "resume-cicd-policy-document" {
       "dynamodb:*"
     ]
     resources = [
-      "${aws_dynamodb_table.resume-visit-counter.arn}"
+      "${aws_dynamodb_table.resume-visit-counter.arn}",
+      "${aws_dynamodb_table.resume_terraform_locks.arn}"
+    ]
+  }
+
+  statement {
+    sid    = "AllowTFDynamoDB"
+    effect = "Allow"
+    actions = [
+      "dynamodb:GetItem",
+      "dynamodb:PutItem",
+      "dynamodb:DeleteItem"
+    ]
+    resources = [
+      "${aws_dynamodb_table.resume_terraform_locks.arn}"
     ]
   }
 
@@ -99,7 +115,7 @@ data "aws_iam_policy_document" "resume-cicd-policy-document" {
       "${aws_iam_user.resume-cicd.arn}",
       "${aws_iam_group.resume-cicd-group.arn}",
       # We can't call the data object from within itself, so we store this as a var
-      "${var.cicd-resume-policy}"
+      "${var.cicd_resume_policy}"
     ]
   }
 
