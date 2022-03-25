@@ -19,16 +19,17 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "starnes.cloud-terraform"
-    key    = "prod/terraform.tfstate"
-    region = "us-east-1"
+    bucket  = "starnes.cloud-terraform"
+    key     = "prod/terraform.tfstate"
+    region  = "us-east-1"
+    encrypt = true
+    #dynamodb_table = "resume_terraform_locks"
   }
 }
 
 provider "aws" {
-  region     = var.aws_region
-  access_key = var.aws_access_key
-  secret_key = var.aws_secret_key
+  region  = var.aws_region
+  profile = "resume-cicd"
 }
 
 #provider "github" {
