@@ -58,6 +58,11 @@ jobs:
       - name: Terraform Plan
         working-directory: ./back-end
         run: terraform plan
+      
+      - name: Scan with tfsec
+        uses: aquasecurity/tfsec-pr-commenter-action@v1.2.0
+        with:
+          github_token: ${{ github.token }}
 
   apply:
     name: Apply
