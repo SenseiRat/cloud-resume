@@ -45,7 +45,7 @@ jobs:
       
       - name: Terraform Init
         working-directory: ./back-end
-        run: env; make init
+        run: make init
       
       - name: Terraform Format
         working-directory: ./back-end
