@@ -29,7 +29,6 @@ terraform {
 
 provider "aws" {
   region  = var.aws_region
-  profile = "resume-cicd"
 }
 
 #provider "github" {
