@@ -42,3 +42,4 @@ After my son was born, I needed an easy project to take on in my free time, so I
 9. Review IAM permissions granted to CICD role to ensure they're not overly permissive
 10. Figure out how to get Github action variables as outputs (region, state bucket)
 11. Reduce permissions on DynamoDB resources
+12. Find more linters and add to pipeline
