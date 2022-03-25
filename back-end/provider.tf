@@ -32,5 +32,5 @@ provider "aws" {
 }
 
 provider "github" {
-  app_auth {}
+  token = var.github_token
 }
