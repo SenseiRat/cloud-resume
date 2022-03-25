@@ -43,6 +43,9 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
       
+      - name: Check environment vars
+        run: env
+      
       - name: Terraform Init
         working-directory: ./back-end
         run: terraform init
