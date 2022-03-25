@@ -23,7 +23,7 @@ terraform {
     key     = "prod/terraform.tfstate"
     region  = "us-east-1"
     encrypt = true
-    #dynamodb_table = "resume_terraform_locks"
+    dynamodb_table = "resume_terraform_locks"
   }
 }
 
@@ -32,5 +32,6 @@ provider "aws" {
 }
 
 provider "github" {
+  owner = var.github_owner
   token = var.github_token
 }
