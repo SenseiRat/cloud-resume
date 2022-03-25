@@ -45,7 +45,7 @@ jobs:
         uses: hashicorp/setup-terraform@v1
       
       - name: Set TF Repo Name
-        run: echo "TF_VAR_repository_name=$(echo $GITHUB_REPOSITORY | awk -F '/' '{ print $2 }'" >> $GITHUB_ENV
+        run: echo "TF_VAR_repository_name=$(echo $GITHUB_REPOSITORY | awk -F '/' '{ print $2 }')" >> $GITHUB_ENV
       
       - name: Terraform Init
         working-directory: ./back-end
