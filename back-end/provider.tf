@@ -19,10 +19,10 @@ terraform {
   }
 
   backend "s3" {
-    bucket  = "starnes.cloud-terraform"
-    key     = "prod/terraform.tfstate"
-    region  = "us-east-1"
-    encrypt = true
+    bucket         = "starnes.cloud-terraform"
+    key            = "prod/terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
     dynamodb_table = "resume_terraform_locks"
   }
 }

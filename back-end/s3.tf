@@ -32,7 +32,7 @@ data "aws_iam_policy_document" "resume-log-bucket-policy" {
     effect = "Allow"
     principals {
       type        = "AWS"
-      identifiers = [aws_iam_user.resume-cicd.unique_id]
+      identifiers = [aws_iam_user.resume-cicd.arn]
     }
     actions = [
       "s3:*"
@@ -120,7 +120,7 @@ data "aws_iam_policy_document" "allow_oai_access_to_resume_bucket" {
     effect = "Allow"
     principals {
       type        = "AWS"
-      identifiers = [aws_iam_user.resume-cicd.unique_id]
+      identifiers = [aws_iam_user.resume-cicd.arn]
     }
     actions = [
       "s3:*"
