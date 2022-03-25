@@ -1,10 +1,28 @@
 data "aws_caller_identity" "current" {}
 
+data "aws_region" "current" {}
+
 variable "common_tags" {
   description = "Common tags applied to all components"
   default = {
     Project = "cloud-resume"
   }
+}
+
+variable "github_owner" {
+  type        = string
+  description = "The account that owns the github repository"
+  default     = "$env:GITHUB_OWNER"
+}
+
+variable "github_token" {
+  type        = string
+  description = "The PAT used to manipulate the Github action secrets"
+}
+
+variable "repository_name" {
+  type        = string
+  description = "Name of the repository that is being used to hold secrets"
 }
 
 variable "aws_region" {

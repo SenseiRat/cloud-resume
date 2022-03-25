@@ -14,6 +14,7 @@ on:
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  TF_VAR_github_token: ${{ secrets.PERSONAL_TOKEN}}
   TF_VAR_aws_region: ${{ secrets.AWS_REGION }}
   TF_VAR_backend_bucket: ${{ secrets.BACKEND_BUCKET }}
   TF_VAR_resume_bucket: ${{ secrets.RESUME_BUCKET }}
@@ -42,6 +43,9 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
+      
+      - name: Set TF Repo Name
+        run: echo "TF_VAR_repository_name=$(echo $GITHUB_REPOSITORY | awk -F '/' '{ print $2 }')" >> $GITHUB_ENV
       
       - name: Terraform Init
         working-directory: ./back-end

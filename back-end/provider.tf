@@ -19,11 +19,11 @@ terraform {
   }
 
   backend "s3" {
-    bucket  = "starnes.cloud-terraform"
-    key     = "prod/terraform.tfstate"
-    region  = "us-east-1"
-    encrypt = true
-    #dynamodb_table = "resume_terraform_locks"
+    bucket         = "starnes.cloud-terraform"
+    key            = "prod/terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
+    dynamodb_table = "resume_terraform_locks"
   }
 }
 
@@ -31,6 +31,7 @@ provider "aws" {
   region = var.aws_region
 }
 
-#provider "github" {
-#  app_auth {}
-#}
+provider "github" {
+  owner = var.github_owner
+  token = var.github_token
+}
