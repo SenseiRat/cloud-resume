@@ -8,9 +8,9 @@ variable "common_tags" {
 }
 
 variable "github_token" {
-  type = string
+  type        = string
   description = "Github access token for updating secrets"
-  default = "$env:GITHUB_TOKEN"
+  default     = "$env:GITHUB_TOKEN"
 }
 
 variable "aws_region" {
