@@ -78,7 +78,7 @@ jobs:
       
       - name: Terraform Init
         working-directory: ./back-end
-        run: env && terraform init
+        run: terraform init
       
       - name: Terraform Plan
         working-directory: ./back-end
