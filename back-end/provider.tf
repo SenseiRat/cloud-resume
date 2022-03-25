@@ -31,6 +31,6 @@ provider "aws" {
   region = var.aws_region
 }
 
-#provider "github" {
-#  app_auth {}
-#}
+provider "github" {
+  app_auth {}
+}
