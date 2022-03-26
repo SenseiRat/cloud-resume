@@ -41,13 +41,16 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Install dependencies
-        run: sudo apt-get install tidy -yqq
+        run: |
+          sudo apt-get install tidy -yqq
+          sudo npm install -g csslint
       
       - name: Validate and lint files
+        working-directory: front-end
         run: |
-          tidy -eq ./front-end/*.html
-          # csslint ./front-end/*.css
-          # jslint ./front-end/*.js
+          tidy -eq *.html
+          csslint *.css
+        continue-on-error: true
   
   deploy:
     if: startsWith(github.event.head_commit.message, 'Merge pull request')
