@@ -47,6 +47,9 @@ jobs:
       - name: Set TF Repo Name
         run: echo "TF_VAR_repository_name=$(echo $GITHUB_REPOSITORY | awk -F '/' '{ print $2 }')" >> $GITHUB_ENV
       
+      - name: Install dependencies
+        run: sudo apt-get install -yqq pylint
+      
       - name: Terraform Init
         working-directory: ./back-end
         run: terraform init
@@ -59,6 +62,10 @@ jobs:
         working-directory: ./back-end
         run: terraform plan
       
+      - name: Run pylint
+        working-directory: ./back-end
+        run: pylint *.py
+
       - name: Scan with tfsec
         uses: aquasecurity/tfsec-pr-commenter-action@v1.2.0
         with:
