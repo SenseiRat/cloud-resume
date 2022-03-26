@@ -20,7 +20,6 @@ env:
   TF_VAR_backend_bucket: ${{ secrets.BACKEND_BUCKET }}
   TF_VAR_resume_bucket: ${{ secrets.RESUME_BUCKET }}
   TF_VAR_cloudfront_distribution_id: ${{ secrets.CF_DIST_ID }}
-  TF_VAR_dynamodb_table_name: ${{ secrets.DYNAMODB_TABLE_NAME }}
   TF_VAR_domain_name: ${{ secrets.DOMAIN_NAME }}
   TF_VAR_cicd_resume_policy: ${{ secrets.CICD_RESUME_POLICY }}
 

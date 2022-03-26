@@ -1,65 +1,53 @@
+import os
 import sys
 import boto3
+import urllib.parse
 
-table_name = 'Cloud-Resume-Visitors'
-client = boto3.client('dynamodb')
+table_name = os.environ.get('DYNAMODB_TABLE_NAME')
+bucket_name = os.environ.get('RESUME_LOG_BUCKET'
 
-def send_response(status, msg, trace=''):
-    if status is 'Failed':
-        response = {
-            'Status': status,
-            'Message': msg,
-            'Response': trace
-        }
-    else:
-        response = {
-            'Status': status,
-            'Visitors': msg
-        }
-    
-    return response
-
+s3 = boto3.client('s3')
+dynamodb = boto3.client('dynamodb')
 
 def lambda_handler(event, context):
-    # Get the current number of visitors stored in the database
-    try:
-        data = client.get_item(
-            TableName = table_name,
-            Key = {'pkey': {'S': "num_visits"}},
-            ProjectionExpression = "visitors"
-        )
-    except:
-        status = 'Failed'
-        msg = 'ERROR - Unable to retrieve current visitor count.'
-        trace = data
-        response = send_response(status, msg, trace)
+    print("Received event: " + json.dumps(event, indent=2))
+    
+    # Parse the entries going into the S3 bucket and store the IP address, how many times that user has visited, and the country
+    bucket = event['Records'][0]['s3']['bucket']['name']
+    key = urllib.parse.unquote_plus(event['Records'][0]['s3']['object']['key'], encoding='utf-8')
 
-    # Add a new visitor to the count
     try:
-        new_visitors = int(data['Item']['visitors']['N']) + 1
-    except:
-        status = 'Failed'
-        msg = 'ERROR - Unable to increment current visitor count.'
-        response = send_response(status, msg)
+        response = s3.get_object(Bucket=bucket, Key=key)
+        print(response)
+    except Exception as e:
+        print(e)
+        print('Error getting object {} from bucket {}.  Make sure they exist and are in the same region as this function.'.format(key, bucket))
+        raise e
+
+    # Get IP address from logs
+
+    # Increment number of times a user has visited
+
+    # Use geolocation to identify where the request originated from
+
+    # Return the total number of users
+
+    # Report data to CloudWatch Logs
+
+
+    #try:
+    #    data = client.get_item(
+    #        TableName = table_name,
+    #        Key = {'pkey': {'S': "num_visits"}},
+    #        ProjectionExpression = "visitors"
+    #    )
     
     # Store the new value in the database
-    try:
-        attempt = client.put_item(
-            TableName = table_name,
-            Item = {
-                'pkey': {'S': 'num_visits'},
-                'visitors': {'N':str(new_visitors)}
-            }
-        )
-    except:
-        status = 'Failed'
-        msg = 'ERROR - Unable to store new visitor count in database.'
-        trace = attempt
-        response = send_response(status, msg, trace)
-    else:
-        # Return valid response with current number of visitors
-        status = 'Success'
-        msg = new_visitors
-        response = send_response(status, msg)
-
-    return response
+    #try:
+    #    attempt = client.put_item(
+    #        TableName = table_name,
+    #        Item = {
+    #            'pkey': {'S': 'num_visits'},
+    #            'visitors': {'N':str(new_visitors)}
+    #        }
+    #    )

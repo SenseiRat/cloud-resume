@@ -9,6 +9,7 @@ data "aws_iam_policy_document" "resume-lambda-policy" {
     ]
     resources = [aws_dynamodb_table.resume-visit-counter.arn]
   }
+  
   statement {
     sid    = "ResumeLambdaList"
     effect = "Allow"
@@ -16,6 +17,17 @@ data "aws_iam_policy_document" "resume-lambda-policy" {
       "dynamodb:ListTables"
     ]
     resources = ["*"]
+  }
+
+  statement {
+    sid = "ResumeLambdaS3"
+    effect = "Allow"
+    actions = [
+      "s3:*"
+    ]
+    resource = [
+      aws_s3_bucket.resume-log-bucket.arn
+    ]
   }
 }
 
@@ -65,5 +77,28 @@ resource "aws_lambda_function" "resume-lambda" {
   handler          = "lambda_function.lambda_handler"
   timeout          = 60
 
+  environment {
+    variables = {
+      DYNAMODB_TABLE_NAME = "${aws_dynamodb_table.resume-visit-counter.name}"
+      RESUME_LOG_BUCKET = "${aws_s3_bucket.resume-log-bucket.name}"
+    }
+  }
+
   tags = var.common_tags
+}
+
+resource "aws_s3_bucket_notification" "aws-lambda-trigger" {
+  bucket = aws_s3_bucket.resume-logs-bucket.id
+  lambda_function {
+    lambda_function_arn = aws_lambda_function.resume-lambda.arn
+    events = ["s3:ObjectCreated:*"]
+  }
+}
+
+resource "aws_lambda_permission" "resume-s3-lambda-permission" {
+  statement_id = "AllowS3Invoke"
+  action = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.resume-lambda.function_name
+  principal = "s3.amazonaws.com"
+  source_arn = aws_s3_bucket.resume-log-bucket.arn
 }

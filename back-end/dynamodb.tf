@@ -12,7 +12,7 @@ resource "aws_dynamodb_table" "resume-visit-counter" {
   tags = var.common_tags
 }
 
-# Attributes are ip_address, visit_count, log_source, and country
+# Attributes are ip_address, visit_count, and country
 
 resource "aws_dynamodb_table" "resume_terraform_locks" {
   name         = "resume_terraform_locks"

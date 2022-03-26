@@ -45,11 +45,6 @@ variable "cloudfront_distribution_id" {
   description = "The Cloudfront distribution ID"
 }
 
-variable "dynamodb_table_name" {
-  type        = string
-  description = "The name of the DynamoDB Table that the lambda interacts with"
-}
-
 variable "domain_name" {
   type        = string
   description = "The domain name for the website"
