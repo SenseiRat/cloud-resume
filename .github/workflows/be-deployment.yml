@@ -65,11 +65,13 @@ jobs:
       - name: Run pylint
         working-directory: ./back-end
         run: pylint *.py
+        continue-on-error: true
 
       - name: Scan with tfsec
         uses: aquasecurity/tfsec-pr-commenter-action@v1.2.0
         with:
           github_token: ${{ github.token }}
+        continue-on-error: true
 
   apply:
     name: Apply

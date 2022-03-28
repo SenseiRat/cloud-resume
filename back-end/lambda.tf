@@ -78,8 +78,8 @@ resource "aws_iam_role" "resume-lambda-iam" {
 
 data "archive_file" "resume-lambda-zip" {
   type        = "zip"
-  source_file = "${path.cwd}/resume-lambda.py"
-  output_path = "${path.cwd}/resume-lambda.zip"
+  source_file = "${path.cwd}/resume_lambda.py"
+  output_path = "${path.cwd}/resume_lambda.zip"
 }
 
 resource "aws_lambda_function" "resume-lambda" {
