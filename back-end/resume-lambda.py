@@ -1,53 +1,149 @@
 import os
 import sys
+import json
+import gzip
 import boto3
+import urllib3
 import urllib.parse
 
 table_name = os.environ.get('DYNAMODB_TABLE_NAME')
-bucket_name = os.environ.get('RESUME_LOG_BUCKET'
+bucket_name = os.environ.get('RESUME_LOG_BUCKET')
 
 s3 = boto3.client('s3')
 dynamodb = boto3.client('dynamodb')
 
-def lambda_handler(event, context):
-    print("Received event: " + json.dumps(event, indent=2))
+def get_dynamodb_item(table_name, ip_address):
+    try:
+        data = dynamodb.get_item(
+            TableName = table_name,
+            Key = {'ip_address': {'S': ip_address }}
+        )
+    except Exception as e:
+        print(e)
+        print(ip_address + " not previously found in database.")
+
+    return data
+
+
+def increment_visit_count(table_name, ip_address, visit_data):
+    visit_count = int(visit_data['Item']['visit_count']['N']) + 1
+
+    try:
+        data = dynamodb.update_item(
+            TableName = table_name,
+            Key = {
+                'ip_address': {'S': ip_address},
+            },
+            UpdateExpression = 'SET visit_count = :val1',
+            ExpressionAttributeValues={
+                ':val1': {'N': str(visit_count)}
+            }
+        )
+    except Exception as e:
+        print(e)
+        print("Unable to update DynamoDB table.")
+
+
+def add_new_visitor(table_name, ip_address):
+    # Build the API call for the geolocation API
+    url = "https://api.ipgeolocation.io/ipgeo?"
+    api_key = "apiKey=" + os.environ.get('IPGEO_API_KEY')
+    target_ip = "&ip=" + ip_address
+    fields = "&fields=geo"
+    filters = "&excludes=country_code2,country_code3,district,zipcode,latitude,longitude"
+
+    api_request = url + api_key + target_ip + fields + filters
+
+    http = urllib3.PoolManager()
+    location_data = json.loads(http.request('GET', api_request).data)
+
+    country = location_data['country_name']
+    state = location_data['state_prov']
+    city = location_data['city']
+
+    try:
+        data = dynamodb.put_item(
+            TableName = table_name,
+            Item = {
+                'ip_address': {'S': ip_address},
+                'visit_count': {'N': '1'},
+                'country': {'S': country},
+                'state': {'S': state},
+                'city': {'S': city}
+            }
+        )
+    except Exception as e:
+        print(e)
+        print("Unable to add entry to DynamoDB")
     
+    increment_unique_visitors(table_name)
+
+
+def get_unique_visitors(table_name):
+    try:
+        data = dynamodb.get_item(
+            TableName = table_name,
+            Key = {'ip_address': {'S': '0.0.0.0' }}
+        )
+    except Exception as e:
+        print(e)
+        print(ip_address + " not previously found in database.")
+    
+    if 'Item' in data.keys():
+        unique_visitors = data['Item']['visit_count']['N']
+    else:
+        unique_visitors = 0
+
+    return unique_visitors
+
+
+def increment_unique_visitors(table_name):
+    unique_visitors = get_unique_visitors(table_name) + 1
+
+    try:
+        data = dynamodb.put_item(
+            TableName = table_name,
+            Item = {
+                'ip_address': {'S': '0.0.0.0'},
+                'visit_count': {'N': str(unique_visitors)}
+            }
+        )
+    except Exception as e:
+        print(e)
+        print("Unable to add entry to DynamoDB")
+
+
+def lambda_handler(event, context):
     # Parse the entries going into the S3 bucket and store the IP address, how many times that user has visited, and the country
     bucket = event['Records'][0]['s3']['bucket']['name']
     key = urllib.parse.unquote_plus(event['Records'][0]['s3']['object']['key'], encoding='utf-8')
 
     try:
         response = s3.get_object(Bucket=bucket, Key=key)
-        print(response)
     except Exception as e:
         print(e)
         print('Error getting object {} from bucket {}.  Make sure they exist and are in the same region as this function.'.format(key, bucket))
         raise e
 
-    # Get IP address from logs
+    try:
+        logfile = gzip.open(response['Body'], 'rt')
+    except Exception as e:
+        print(e)
+        raise e
 
-    # Increment number of times a user has visited
+    for entry in logfile:
+        if entry.startswith("#"):
+            continue
+        else:
+            ip_address = entry.split("\t")[4]
+            request_page = entry.split("\t")[7]
+            visit_data = get_dynamodb_item(table_name, ip_address)
 
-    # Use geolocation to identify where the request originated from
+            if 'Item' in visit_data.keys():
+                increment_visit_count(table_name, ip_address, visit_data)
+            else:
+                add_new_visitor(table_name, ip_address)
 
-    # Return the total number of users
+    unique_visitors = get_unique_visitors(table_name)
 
-    # Report data to CloudWatch Logs
-
-
-    #try:
-    #    data = client.get_item(
-    #        TableName = table_name,
-    #        Key = {'pkey': {'S': "num_visits"}},
-    #        ProjectionExpression = "visitors"
-    #    )
-    
-    # Store the new value in the database
-    #try:
-    #    attempt = client.put_item(
-    #        TableName = table_name,
-    #        Item = {
-    #            'pkey': {'S': 'num_visits'},
-    #            'visitors': {'N':str(new_visitors)}
-    #        }
-    #    )
+    return unique_visitors

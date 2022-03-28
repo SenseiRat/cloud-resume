@@ -149,6 +149,17 @@ data "aws_iam_policy_document" "resume-cicd-policy-document" {
       "${aws_lambda_function.resume-lambda.arn}"
     ]
   }
+
+  statement {
+    sid    = "AllowCloudwatch"
+    effect = "Allow"
+    actions = [
+      "logs:*"
+    ]
+    resources = [
+      aws_cloudwatch_log_group.resume-lambda-log-group.arn
+    ]
+  }
 }
 
 resource "aws_iam_policy" "resume-cicd-policy" {

@@ -54,3 +54,8 @@ variable "cicd_resume_policy" {
   type        = string
   description = "Stored because we can't call an object within itself"
 }
+
+variable "ipgeo_api_key" {
+  type        = string
+  description = "API Key for performing Geolocation lookups in lambda"
+}

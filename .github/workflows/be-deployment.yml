@@ -21,6 +21,7 @@ env:
   TF_VAR_cloudfront_distribution_id: ${{ secrets.CF_DIST_ID }}
   TF_VAR_domain_name: ${{ secrets.DOMAIN_NAME }}
   TF_VAR_cicd_resume_policy: ${{ secrets.CICD_RESUME_POLICY }}
+  TF_VAR_ipgeo_api_key: ${{ secrets.IPGEO_API_KEY }}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
