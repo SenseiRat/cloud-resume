@@ -25,7 +25,7 @@ def get_dynamodb_item(table_name, ip_address):
     return data
 
 
-def increment_visit_count(table_name, ip_address, visit_data):
+def increment_visit_count(table_name, ip_address, visit_data, request_page):
     visit_count = int(visit_data['Item']['visit_count']['N']) + 1
 
     try:
@@ -35,7 +35,7 @@ def increment_visit_count(table_name, ip_address, visit_data):
                 'ip_address': {'S': ip_address},
             },
             UpdateExpression = 'SET visit_count = :val1',
-            ExpressionAttributeValues={
+            ExpressionAttributeValues = {
                 ':val1': {'N': str(visit_count)}
             }
         )
@@ -43,8 +43,39 @@ def increment_visit_count(table_name, ip_address, visit_data):
         print(e)
         print("Unable to update DynamoDB table.")
 
+    # Get the list of pages that have already been visited
+    try:
+        data = dynamodb.get_item(
+            TableName = table_name,
+            Key = {'ip_address': {'S': ip_address }}
+        )
+    except Exception as e:
+        print(e)
+        print(ip_address + " not previously found in database.")
 
-def add_new_visitor(table_name, ip_address):
+    print(data['Item']['pages_viewed'])
+
+    for page in data['Item']['pages_viewed']['L']:
+        if page['S'] == request_page:
+            break
+        else:
+            try:
+                data = dynamodb.update_item(
+                    TableName = table_name,
+                    Key = {
+                        'ip_address': {'S': ip_address},
+                    },
+                    UpdateExpression = 'SET pages_viewed = list_append(pages_viewed, :val1)',
+                    ExpressionAttributeValues = {
+                        ':val1': {'L': [{'S': request_page}]}
+                    }
+                )
+            except Exception as e:
+                print(e)
+                print("Unable to update DynamoDB table.")
+
+
+def add_new_visitor(table_name, ip_address, request_page):
     # Build the API call for the geolocation API
     url = "https://api.ipgeolocation.io/ipgeo?"
     api_key = "apiKey=" + os.environ.get('IPGEO_API_KEY')
@@ -69,7 +100,8 @@ def add_new_visitor(table_name, ip_address):
                 'visit_count': {'N': '1'},
                 'country': {'S': country},
                 'state': {'S': state},
-                'city': {'S': city}
+                'city': {'S': city},
+                'pages_viewed': {'L': [{'S': request_page}]}
             }
         )
     except Exception as e:
@@ -94,7 +126,7 @@ def get_unique_visitors(table_name):
     else:
         unique_visitors = 0
 
-    return unique_visitors
+    return int(unique_visitors)
 
 
 def increment_unique_visitors(table_name):
@@ -140,9 +172,9 @@ def lambda_handler(event, context):
             visit_data = get_dynamodb_item(table_name, ip_address)
 
             if 'Item' in visit_data.keys():
-                increment_visit_count(table_name, ip_address, visit_data)
+                increment_visit_count(table_name, ip_address, visit_data, request_page)
             else:
-                add_new_visitor(table_name, ip_address)
+                add_new_visitor(table_name, ip_address, request_page)
 
     unique_visitors = get_unique_visitors(table_name)
 
