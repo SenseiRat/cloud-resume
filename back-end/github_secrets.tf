@@ -28,12 +28,6 @@ resource "github_actions_secret" "DOMAIN_NAME" {
   plaintext_value = var.domain_name
 }
 
-resource "github_actions_secret" "DYNAMODB_TABLE_NAME" {
-  repository      = var.repository_name
-  secret_name     = "DYNAMODB_TABLE_NAME"
-  plaintext_value = aws_dynamodb_table.resume-visit-counter.name
-}
-
 resource "github_actions_secret" "RESUME_BUCKET" {
   repository      = var.repository_name
   secret_name     = "RESUME_BUCKET"

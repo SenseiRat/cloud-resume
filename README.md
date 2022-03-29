@@ -30,6 +30,8 @@ After my son was born, I needed an easy project to take on in my free time, so I
 20. Multi-cloud Pt. II: Deploy the same resources to Azure, replicate the databases, and apply with terraform
 21. Monitoring: Perform Geolocation on IP Addresses to find where requests are coming from and notify if coming from desirable geographic location
 22. Deploy a pipeline that continuously scans your website for common vulnerabilities
+23. Enable and configure AWS SSO
+24. Set up AWS Grafana to display visualizations from the data
 
 # To Do
 1. ~~Enable bucket/Cloudfront logging to get visitors to website~~

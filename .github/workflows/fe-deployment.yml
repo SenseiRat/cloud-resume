@@ -20,7 +20,6 @@ env:
   TF_VAR_backend_bucket: ${{ secrets.BACKEND_BUCKET }}
   TF_VAR_resume_bucket: ${{ secrets.RESUME_BUCKET }}
   TF_VAR_cloudfront_distribution_id: ${{ secrets.CF_DIST_ID }}
-  TF_VAR_dynamodb_table_name: ${{ secrets.DYNAMODB_TABLE_NAME }}
   TF_VAR_domain_name: ${{ secrets.DOMAIN_NAME }}
   TF_VAR_cicd_resume_policy: ${{ secrets.CICD_RESUME_POLICY }}
 
@@ -65,7 +64,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Upload the files to S3  
         run: |
-          aws s3 --region ${AWS_REGION} sync front-end "s3://${RESUME_BUCKET}"
+          aws s3 --region ${TF_VAR_aws_region} sync front-end "s3://${TF_VAR_resume_bucket}"
 
   clear_cache:
     if: startsWith(github.event.head_commit.message, 'Merge pull request')
@@ -80,4 +79,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Invalidate the Cloudfront Cache
-        run: aws cloudfront --region ${AWS_REGION} create-invalidation --distribution-id "${CF_DIST_ID}" --paths /*
+        run: aws cloudfront --region ${TF_VAR_aws_region} create-invalidation --distribution-id "${TF_VAR_cloudfront_distribution_id}" --paths /*

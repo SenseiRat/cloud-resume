@@ -45,11 +45,6 @@ variable "cloudfront_distribution_id" {
   description = "The Cloudfront distribution ID"
 }
 
-variable "dynamodb_table_name" {
-  type        = string
-  description = "The name of the DynamoDB Table that the lambda interacts with"
-}
-
 variable "domain_name" {
   type        = string
   description = "The domain name for the website"
@@ -58,4 +53,9 @@ variable "domain_name" {
 variable "cicd_resume_policy" {
   type        = string
   description = "Stored because we can't call an object within itself"
+}
+
+variable "ipgeo_api_key" {
+  type        = string
+  description = "API Key for performing Geolocation lookups in lambda"
 }
